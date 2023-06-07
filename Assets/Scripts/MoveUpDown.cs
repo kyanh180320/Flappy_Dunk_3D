@@ -5,33 +5,50 @@ using UnityEngine;
 public class MoveUpDown : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 startPos;
-    Vector3 endPos;
-    Vector3 targetPos;
+    [SerializeField] GameObject startPos;
+    [SerializeField] GameObject endPos;
+    [SerializeField] GameObject circle;
     [SerializeField] private float upDownSpeed;
     [SerializeField] private float leftSpeed;
-    void Start()
-    {
-        startPos = new Vector3(transform.position.x, -1, 0);
-        endPos = new Vector3(transform.position.x, 1, 0);
-        targetPos = endPos;
-    }
-
+    Vector3 targetPos;
     // Update is called once per frame
+
+    public bool isMoveUp;
+    public bool isMoveDown;
+    private void Start()
+    {
+    }
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, upDownSpeed * Time.deltaTime);
-        transform.Translate(Vector3.left * leftSpeed*Time.deltaTime);
-        if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+        transform.Translate(Vector3.left * leftSpeed * Time.deltaTime);
+
+        if (circle != null)
         {
-            if (targetPos == endPos)
+            if (isMoveUp)
             {
-                targetPos = startPos;
+
+                circle.transform.position = Vector3.MoveTowards(circle.transform.position, startPos.transform.position, upDownSpeed * Time.deltaTime);
+
+                if (circle.transform.position == startPos.transform.position)
+                {
+                    print("Must moveDown");
+                    isMoveUp = !isMoveUp;
+                    isMoveDown = !isMoveUp;
+
+                }
+
             }
-            else
+            else if (isMoveDown)
             {
-                targetPos = endPos;
+                print("Move Down");
+                circle.transform.position = Vector3.MoveTowards(circle.transform.position, endPos.transform.position, upDownSpeed * Time.deltaTime);
+                if (circle.transform.position == endPos.transform.position)
+                {
+                    isMoveUp = !isMoveUp;
+                    isMoveDown = !isMoveUp;
+                }
             }
         }
+
     }
 }

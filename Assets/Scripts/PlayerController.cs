@@ -43,11 +43,19 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.SetStateGame(true);
             Destroy(other.gameObject);
         }
+        if (other.gameObject.CompareTag("DownScoreCircle"))
+        {
+            GameManager.instance.Plus10Score();
+        }
+        if (other.gameObject.CompareTag("DownFeverCircle"))
+        {
+            GameManager.instance.Plus5XScore();
+        }
         if (other.gameObject.CompareTag("DownCircle") && collisionDetection)
         {
             print("va cham duoi va va cham tren");
             GameManager.instance.SetStateGame(true);
-            GameManager.instance.IncreamentXScore();
+            GameManager.instance.IncreamentXScore(1);
 
             if (collisionCircle)
             {
@@ -64,6 +72,8 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("DownCircle") && !collisionDetection)
         {
             print("Va cham duoi nhung khong va cham tren");
+            rb.useGravity = false;  
+            rb.mass = 0f;
             GameManager.instance.SetStateGame(false);
 
         }
@@ -80,5 +90,6 @@ public class PlayerController : MonoBehaviour
         {
             collisionCircle = true;
         }
+     
     }
 }

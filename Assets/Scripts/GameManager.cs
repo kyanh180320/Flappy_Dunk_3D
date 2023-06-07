@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        score = 25;
+        //score = 35;
     }
 
     // Update is called once per frame
@@ -50,9 +50,9 @@ public class GameManager : MonoBehaviour
             else if (XScore == 3)
             {
                 Praise.text = "Nice";
-                changeColorText(1,1,1);
+                changeColorText(1, 1, 1);
             }
-            else if(XScore == 4)
+            else if (XScore == 4)
             {
                 Praise.text = "Sweet";
                 changeColorText(0.8902f, 0.8118f, 0.3922f);
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                XScore = 7;
                 Praise.text = "Spectacular";
                 changeColorText(0.5804f, 0.1922f, 0.8863f);
             }
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
 
 
     public void SetStateGame(bool state)
@@ -104,9 +106,13 @@ public class GameManager : MonoBehaviour
         textScore.text = score.ToString();
 
     }
-    public void IncreamentXScore()
+    public void IncreamentXScore(int state)
     {
-        XScore++;
+        XScore += state;
+    }
+    public int GetXScore()
+    {
+        return XScore;
     }
 
 
@@ -114,10 +120,24 @@ public class GameManager : MonoBehaviour
     {
         return score;
     }
- 
+
     public void ResetXXXScore()
     {
         XScore = 1;
+    }
+    public void Plus10Score()
+    {
+        score += 10;
+        //textScore.text = score.ToString();
+    }
+    public void Plus5XScore()
+    {
+        if (GameManager.instance.GetXScore() < 4)
+        {
+            XScore = 4;
+        }
+        
+        //textScore.text = score.ToString();  
     }
     //public void ReplayGamew()
     //{
@@ -138,7 +158,7 @@ public class GameManager : MonoBehaviour
     //    panelGameOver.SetActive(state);
     //}
 
-    void changeColorText(float r, float g, float b )
+    void changeColorText(float r, float g, float b)
     {
         Praise.color = new Color(r, g, b);
         textXScore.color = new Color(r, g, b);

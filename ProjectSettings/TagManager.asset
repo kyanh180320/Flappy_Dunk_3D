@@ -9,6 +9,8 @@ TagManager:
   - DownCircle
   - Wall
   - DeadZone
+  - DownFeverCircle
+  - DownScoreCircle
   layers:
   - Default
   - TransparentFX

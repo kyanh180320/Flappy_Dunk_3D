@@ -11,11 +11,16 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject[] circle_Minus30_And_Plus30;
     [SerializeField] private GameObject circle_0;
     [SerializeField] private GameObject circle_0_UpDown;
+    [SerializeField] private GameObject circle_Fever;
+    int Score;
     int countToSpawn = 3;
+    bool checkSpawnCircleFever;
     void Start()
     {
+        checkSpawnCircleFever = true;
         countToSpawn = 0;
         timeSpawnCounter = 7;
+        Score = GameManager.instance.GetScore();
     }
 
     // Update is called once per frame
@@ -36,6 +41,12 @@ public class SpawnManager : MonoBehaviour
         {
             SpawnObstacles(circle_0);
         }
+        else if((GameManager.instance.GetScore() >=18 && GameManager.instance.GetScore() <23) && checkSpawnCircleFever)
+        {
+            SpawnObstacles(circle_Fever);
+            checkSpawnCircleFever = false;
+        }
+       
         else if (GameManager.instance.GetScore() > 15 && GameManager.instance.GetScore() <= 25)
         {
             if (countToSpawn <= 0)
