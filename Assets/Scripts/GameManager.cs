@@ -10,16 +10,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     int countCheck = 1;
     public static GameManager instance;
+
     [SerializeField] private TextMeshProUGUI textScore;
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
     //public TextMeshProUGUI textYourScore;
     //public TextMeshProUGUI textHighScore;
-
+    [SerializeField] private GameObject HomeUI, SettingUI;
     int score;
     //int highScore;
     bool stateGame;
     int XScore;
+    bool runGame;
     //public GameObject panelGameOver;
     private void Awake()
     {
@@ -31,12 +33,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //score = 35;
+        runGame = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public bool GetSateRunGame()
+    {
+        return runGame;
+    }
+    public void SetStateRunGame(bool state)
+    {
+        runGame = state;
     }
     public void PraiseActive()
     {
@@ -162,6 +174,19 @@ public class GameManager : MonoBehaviour
     {
         Praise.color = new Color(r, g, b);
         textXScore.color = new Color(r, g, b);
+    }
+    public void TapToPlay()
+    {
+        HomeUI.SetActive(false);
+        SetStateRunGame(true);
+    }
+    public void CloseSettingUI()
+    {
+        SettingUI.SetActive(false);
+    }
+    public void OpenSettingUI()
+    {
+        SettingUI.SetActive(true);
     }
 
 }

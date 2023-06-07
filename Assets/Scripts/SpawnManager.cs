@@ -27,13 +27,17 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (!GameManager.instance.GetStateGame()) return;
-        timeSpawnCounter += Time.deltaTime;
-
-        if (timeSpawnCounter > timeToSpawn)
+        if (GameManager.instance.GetSateRunGame())
         {
-            timeSpawnCounter = 0;
-            this.Spawn();
+            timeSpawnCounter += Time.deltaTime;
+
+            if (timeSpawnCounter > timeToSpawn)
+            {
+                timeSpawnCounter = 0;
+                this.Spawn();
+            }
         }
+   
     }
     private void Spawn()
     {
