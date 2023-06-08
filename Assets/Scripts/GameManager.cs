@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Praise;
     //public TextMeshProUGUI textYourScore;
     //public TextMeshProUGUI textHighScore;
-    [SerializeField] private GameObject HomeUI, SettingUI;
+    [SerializeField] private GameObject HomeUI, SettingUI, SkinUI;
     int score;
     //int highScore;
     bool stateGame;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         //score = 35;
         runGame = false;
-        
+
     }
 
     // Update is called once per frame
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         {
             XScore = 4;
         }
-        
+
         //textScore.text = score.ToString();  
     }
     //public void ReplayGamew()
@@ -188,5 +188,12 @@ public class GameManager : MonoBehaviour
     {
         SettingUI.SetActive(true);
     }
-
+    public void OpentSkinUI()
+    {
+        SkinUI.SetActive(true);
+    }
+    public void ReturnHomeUI()
+    {
+        SkinUI.SetActive(false);
+    }
 }
