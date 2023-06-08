@@ -30,10 +30,7 @@ public class SwipeCharacter : MonoBehaviour
         }
         else
         {
-            for (int i = 0, i < pos.Length; i++)
-            {
-
-            }
+          
         }
     }
 }
