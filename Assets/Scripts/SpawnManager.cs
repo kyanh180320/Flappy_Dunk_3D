@@ -27,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (!GameManager.instance.GetStateGame()) return;
-        if (GameManager.instance.GetSateRunGame())
+        //if (GameManager.instance.GetSateRunGame())
         {
             timeSpawnCounter += Time.deltaTime;
 

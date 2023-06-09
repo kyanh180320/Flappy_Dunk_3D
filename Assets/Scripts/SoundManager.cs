@@ -11,9 +11,11 @@ public class SoundManager : MonoBehaviour
     //[SerializeField] Image soundOffIcon;
     [SerializeField] Sprite soundOnIcon, soundOffIcon;
     [SerializeField] private Button soundButton;
+   
     private bool muted = false;
     void Start()
     {
+      
         //if (!PlayerPrefs.HasKey("musicVolume"))
         //{
         //    PlayerPrefs.SetFloat("musicVolume", 1);
@@ -35,7 +37,7 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      
     }
     //public void ChangeVolume()
     //{

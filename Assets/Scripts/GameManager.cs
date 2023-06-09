@@ -11,14 +11,12 @@ public class GameManager : MonoBehaviour
     int countCheck = 1;
     public static GameManager instance;
 
-    [SerializeField] private TextMeshProUGUI textScore;
+    [SerializeField] private TextMeshProUGUI textScore, textScoreEndUI, textHighScore;
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
-    //public TextMeshProUGUI textYourScore;
-    //public TextMeshProUGUI textHighScore;
-    [SerializeField] private GameObject HomeUI, SettingUI, SkinUI;
+    [SerializeField] private GameObject HomeUI, SettingUI, SkinUI, AchievementUI, PauseUI, LooseUI, EndUI, SpawnManagerGM, player;
     int score;
-    //int highScore;
+    int highScore;
     bool stateGame;
     int XScore;
     bool runGame;
@@ -28,7 +26,7 @@ public class GameManager : MonoBehaviour
         XScore = 1;
         stateGame = true;
         instance = this;
-        //PlayerPrefs.GetInt("HighScore", 0);
+        PlayerPrefs.GetInt("HighScore", 0);
     }
     void Start()
     {
@@ -175,10 +173,13 @@ public class GameManager : MonoBehaviour
         Praise.color = new Color(r, g, b);
         textXScore.color = new Color(r, g, b);
     }
+
+    // --------UI--------
     public void TapToPlay()
     {
         HomeUI.SetActive(false);
-        SetStateRunGame(true);
+        SpawnManagerGM.SetActive(true);
+        player.SetActive(true);
     }
     public void CloseSettingUI()
     {
@@ -191,9 +192,59 @@ public class GameManager : MonoBehaviour
     public void OpentSkinUI()
     {
         SkinUI.SetActive(true);
+        HomeUI.SetActive(false);
+    }
+    public void OpenAchivementUI()
+    {
+        AchievementUI.SetActive(true);
+        HomeUI.SetActive(false);
     }
     public void ReturnHomeUI()
     {
         SkinUI.SetActive(false);
+        AchievementUI.SetActive(false);
+        HomeUI.SetActive(true);
     }
+    public void OpeanPauseUI()
+    {
+        PauseUI.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void Resume()
+    {
+        PauseUI.SetActive(false);
+        Time.timeScale = 1;
+    }
+    public void LooseUIActive()
+    {
+        LooseUI.SetActive(true);
+    }
+    public void SkipLooseUI()
+    {
+
+        LooseUI.SetActive(false);
+        textScoreEndUI.text = score.ToString();
+        if (score > highScore)
+        {
+
+            PlayerPrefs.SetInt("HighScore", score);
+            //PlayerPrefs.Save();
+        }
+        textHighScore.text = PlayerPrefs.GetInt("HighScore", score).ToString();
+        EndUI.SetActive(true);
+
+    }
+    public void Retry()
+    {
+        score = 0;
+        player.transform.position = new Vector3(-2, 0, 2);
+        player.GetComponent<Rigidbody>().useGravity = false;
+        EndUI.SetActive(false);
+        HomeUI.SetActive(false);
+
+    }
+    // --------UI--------
+
+
+    //--------
 }

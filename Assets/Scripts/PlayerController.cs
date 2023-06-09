@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = false;  
             rb.mass = 0f;
             GameManager.instance.SetStateGame(false);
+            GameManager.instance.LooseUIActive();
+
 
         }
     }
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             GameManager.instance.SetStateGame(false);
+            GameManager.instance.LooseUIActive();
         }
         if (collision.gameObject.CompareTag("Circle"))
         {
