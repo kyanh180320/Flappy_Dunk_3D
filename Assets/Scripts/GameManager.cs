@@ -10,23 +10,28 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     int countCheck = 1;
     public static GameManager instance;
-
+    [SerializeField] private float force;
     [SerializeField] private TextMeshProUGUI textScore, textScoreEndUI, textHighScore;
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
     [SerializeField] private GameObject HomeUI, SettingUI, SkinUI, AchievementUI, PauseUI, LooseUI, EndUI, SpawnManagerGM, player;
+    Rigidbody rb;
     int score;
     int highScore;
     bool stateGame;
     int XScore;
     bool runGame;
+    bool checkSpawnRetry;
     //public GameObject panelGameOver;
     private void Awake()
     {
+        rb = player.GetComponent<Rigidbody>();
+        checkSpawnRetry = false;
         XScore = 1;
         stateGame = true;
         instance = this;
-        PlayerPrefs.GetInt("HighScore", 0);
+
+        textHighScore.text = PlayerPrefs.GetInt("HighScore",0).ToString();
     }
     void Start()
     {
@@ -38,7 +43,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetMouseButton(0) && !rb.useGravity)
+        {
+            rb.useGravity = true;
+            return;
+        }
+     
     }
     public bool GetSateRunGame()
     {
@@ -223,25 +233,34 @@ public class GameManager : MonoBehaviour
     {
 
         LooseUI.SetActive(false);
-        textScoreEndUI.text = score.ToString();
-        if (score > highScore)
+        if (score > PlayerPrefs.GetInt("HighScore",0))
         {
-
             PlayerPrefs.SetInt("HighScore", score);
-            //PlayerPrefs.Save();
+            textHighScore.text = score.ToString();
         }
-        textHighScore.text = PlayerPrefs.GetInt("HighScore", score).ToString();
+        textScoreEndUI.text = score.ToString();
         EndUI.SetActive(true);
 
+    }
+    public void ResetAll()
+    {
+        PlayerPrefs.DeleteKey("HighScore");
+        textHighScore.text = "0";
     }
     public void Retry()
     {
         score = 0;
         player.transform.position = new Vector3(-2, 0, 2);
-        player.GetComponent<Rigidbody>().useGravity = false;
+        rb.useGravity = false;
+        player.transform.Rotate(0, 0, 0);
+        
         EndUI.SetActive(false);
         HomeUI.SetActive(false);
 
+    }
+    public void EndUIOrPauseUIReturnHomeUI()
+    {
+        SceneManager.LoadScene(0);
     }
     // --------UI--------
 
