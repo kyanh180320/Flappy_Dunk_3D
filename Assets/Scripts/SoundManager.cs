@@ -15,12 +15,16 @@ public class SoundManager : MonoBehaviour
     private bool muted = false;
     void Start()
     {
-      
-        //if (!PlayerPrefs.HasKey("musicVolume"))
-        //{
-        //    PlayerPrefs.SetFloat("musicVolume", 1);
-        //    Load();
-        //}
+
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            PlayerPrefs.SetFloat("musicVolume", 1);
+            LoadVolume();
+        }
+        else
+        {
+            LoadVolume();
+        }
         if (!PlayerPrefs.HasKey("muted"))
         {
             PlayerPrefs.SetInt("muted", 0);
@@ -39,11 +43,7 @@ public class SoundManager : MonoBehaviour
     {
       
     }
-    //public void ChangeVolume()
-    //{
-    //    AudioListener.volume = volumeSlider.value;
-    //    SaveBgMusic();
-    //}
+
     //private void Load()
     //{
     //    volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
@@ -73,7 +73,6 @@ public class SoundManager : MonoBehaviour
         {
             if (!muted)
             {
-
                 soundButton.GetComponent<Image>().sprite = soundOnIcon;
             }
             else
@@ -91,6 +90,18 @@ public class SoundManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("muted", muted ? 1 : 0);
     }
-
+    private void SaveVolume()
+    {
+        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+    }
+    private void LoadVolume()
+    {
+        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+    }
+    public void ChangeVolume()
+    {
+        AudioListener.volume = volumeSlider.value;
+        SaveVolume();
+    }
 }
 

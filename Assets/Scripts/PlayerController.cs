@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.instance.GetStateGame()) return;
         if (Input.GetMouseButtonDown(0))
         {
-            print("tra lai trong luc");
             rb.useGravity = true;
             rb.velocity = Vector3.up * force;
         }

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     bool stateGame;
     int XScore;
     bool runGame;
+    Vector3 initialPos;
     bool checkSpawnRetry;
     //public GameObject panelGameOver;
     private void Awake()
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
         XScore = 1;
         stateGame = true;
         instance = this;
-
-        textHighScore.text = PlayerPrefs.GetInt("HighScore",0).ToString();
+        initialPos = player.transform.position;
+        textHighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
     void Start()
     {
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
             rb.useGravity = true;
             return;
         }
-     
+
     }
     public bool GetSateRunGame()
     {
@@ -241,7 +242,7 @@ public class GameManager : MonoBehaviour
     {
 
         LooseUI.SetActive(false);
-        if (score > PlayerPrefs.GetInt("HighScore",0))
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
             PlayerPrefs.SetInt("HighScore", score);
             textHighScore.text = score.ToString();
@@ -258,16 +259,29 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         score = 0;
+        textScore.text = score.ToString();
         player.transform.position = new Vector3(-2, 0, 2);
         rb.useGravity = false;
-        player.transform.Rotate(0, 0, 0);
-        
+        player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        SetStateGame(true);
         EndUI.SetActive(false);
         HomeUI.SetActive(false);
+        PauseUI.SetActive(false);
+        Praise.gameObject.SetActive(false);
+        XScore = 1;
+        GameObject[] objectToDestroy = GameObject.FindGameObjectsWithTag("Circle");
+        foreach (GameObject obj in objectToDestroy)
+        {
+            Destroy(obj);
+        }
+        Time.timeScale = 1.0f;
+
 
     }
     public void EndUIOrPauseUIReturnHomeUI()
     {
+        print("Tro ve home");
+
         SceneManager.LoadScene(0);
     }
     // --------UI--------
