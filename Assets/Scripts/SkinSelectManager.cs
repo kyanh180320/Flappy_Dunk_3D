@@ -15,12 +15,12 @@ public class SkinSelectManager : MonoBehaviour
     }
     void Start()
     {
-        selectSkin = FindObjectsOfType<SelectSkin>();
+        /*selectSkin = FindObjectsOfType<SelectSkin>();
         int equippedSkinIndex = PlayerPrefs.GetInt("EquippedSkinIndex", -1);
         if (equippedSkinIndex >= 0 && equippedSkinIndex < selectSkin.Length)
         {
             selectSkin[equippedSkinIndex].SetStateSelectSkinText("Equiped");
-        }
+        }*/
     }
 
     // Update is called once per frame

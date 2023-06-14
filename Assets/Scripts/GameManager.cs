@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
     [SerializeField] private GameObject HomeUI, SettingUI, SkinUI, AchievementUI, PauseUI, LooseUI, EndUI, SpawnManagerGM, player;
+    [SerializeField] private GameObject body, eye, foot, head;
+    [SerializeField] private List<Material> materialList;
     Rigidbody rb;
     int score;
     int highScore;
@@ -190,6 +192,12 @@ public class GameManager : MonoBehaviour
         HomeUI.SetActive(false);
         SpawnManagerGM.SetActive(true);
         player.SetActive(true);
+        int selectedIndex = GameData.ChickenSkinIndex;
+        body.GetComponent<Renderer>().material = materialList[selectedIndex];
+        eye.GetComponent<Renderer>().material = materialList[selectedIndex];
+        head.GetComponent<Renderer>().material = materialList[selectedIndex];
+        foot.GetComponent<Renderer>().material = materialList[selectedIndex];
+
     }
     public void CloseSettingUI()
     {
