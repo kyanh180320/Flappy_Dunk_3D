@@ -88,12 +88,9 @@ public class RankManager : MonoBehaviour
             Color currentColor = imageRank.color;
             currentColor.a = 1f;
             imageRank.color = currentColor;
-
         }
 
     }
-
-
     void RandomImageRank()
     {
         int randomImage = Random.Range(0, imageRankList.Length);
