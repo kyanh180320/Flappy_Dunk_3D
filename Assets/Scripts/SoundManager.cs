@@ -15,7 +15,6 @@ public class SoundManager : MonoBehaviour
     private bool muted = false;
     void Start()
     {
-
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
             PlayerPrefs.SetFloat("musicVolume", 1);
@@ -43,7 +42,6 @@ public class SoundManager : MonoBehaviour
     {
       
     }
-
     //private void Load()
     //{
     //    volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
@@ -80,7 +78,6 @@ public class SoundManager : MonoBehaviour
                 soundButton.GetComponent<Image>().sprite = soundOffIcon;
             }
         }
-
     }
     private void LoadBgMusic()
     {
