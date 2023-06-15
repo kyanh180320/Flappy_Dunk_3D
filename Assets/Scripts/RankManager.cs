@@ -67,9 +67,10 @@ public class RankManager : MonoBehaviour
         if (checkRandomImage)
         {
             greenTickImage.gameObject.SetActive(true);
+            WaitToChangeRankImage(nameRank);
+
         }
 
-        WaitToChangeRankImage(nameRank);
 
     }
     void WaitToChangeRankImage(string newRank)
