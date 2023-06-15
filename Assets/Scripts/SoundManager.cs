@@ -7,11 +7,11 @@ public class SoundManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private Slider volumeSlider;
-    //[SerializeField] Image soundOnIcon;
-    //[SerializeField] Image soundOffIcon;
-    [SerializeField] Sprite soundOnIcon, soundOffIcon;
+  
     [SerializeField] private Button soundButton;
-   
+    [SerializeField] private GameObject soundOnImageSettingUI, soundOffImageSettingUI;
+    [SerializeField] private GameObject soundOnImagePauseUI, soundOffImagePauseUI;
+
     private bool muted = false;
     void Start()
     {
@@ -71,11 +71,17 @@ public class SoundManager : MonoBehaviour
         {
             if (!muted)
             {
-                soundButton.GetComponent<Image>().sprite = soundOnIcon;
+                soundOnImageSettingUI.SetActive(true);
+                soundOffImageSettingUI.SetActive(false);
+                soundOnImagePauseUI.SetActive(true);
+                soundOffImagePauseUI.SetActive(false);
             }
             else
             {
-                soundButton.GetComponent<Image>().sprite = soundOffIcon;
+                soundOffImageSettingUI.SetActive(true) ;
+                soundOnImageSettingUI.SetActive(false);
+                soundOffImagePauseUI.SetActive(true );
+                soundOnImagePauseUI.SetActive(false);
             }
         }
     }
@@ -93,7 +99,10 @@ public class SoundManager : MonoBehaviour
     }
     private void LoadVolume()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        }
     }
     public void ChangeVolume()
     {
