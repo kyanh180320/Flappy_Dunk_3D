@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class GameManager : MonoBehaviour
     int countCheck = 1;
     public static GameManager instance;
     [SerializeField] private float force;
+    [SerializeField] private HorizontalScrollSnap changeGameModeSnapView;
+    [SerializeField] private MeshRenderer backgroundRenderer;
+    [SerializeField] private Image backgroundHomeImage;
+    [SerializeField] private Material chickenBgMat;
+    [SerializeField] private Material toiletBgMat;
     [SerializeField] private TextMeshProUGUI textScore, textScoreEndUI, textHighScore;
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
@@ -208,7 +214,20 @@ public class GameManager : MonoBehaviour
         eye.GetComponent<Renderer>().material = materialList[selectedIndex];
         head.GetComponent<Renderer>().material = materialList[selectedIndex];
         foot.GetComponent<Renderer>().material = materialList[selectedIndex];
+    }
 
+    public void ChangePage()
+    {
+        if (changeGameModeSnapView.CurrentPage == 0)
+        {
+            backgroundRenderer.material = chickenBgMat;
+            backgroundHomeImage.color = chickenBgMat.color;
+        }
+        else if (changeGameModeSnapView.CurrentPage == 1)
+        {
+            backgroundRenderer.material = toiletBgMat;
+            backgroundHomeImage.color = toiletBgMat.color;
+        }
     }
     public void CloseSettingUI()
     {
