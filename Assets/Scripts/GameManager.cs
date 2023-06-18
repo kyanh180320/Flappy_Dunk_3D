@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textScore, textScoreEndUI, textHighScore;
     [SerializeField] private TextMeshProUGUI textXScore;
     [SerializeField] private TextMeshProUGUI Praise;
-    [SerializeField] private GameObject HomeUI, SettingUI, SkinUI, AchievementUI, PauseUI, LooseUI, EndUI, SpawnManagerGM, player;
+    [SerializeField] private GameObject HomeUI, SettingUI, SkinUI, AchievementUI, PauseUI, LooseUIGameObj, EndUI, SpawnManagerGM, player;
+    [SerializeField] private LooseUI looseUI;
     [SerializeField] private GameObject body, eye, foot, head;
     [SerializeField] private List<Material> materialList;
     Rigidbody rb;
-    int score;
+    [SerializeField] int score;
     int highScore;
     bool stateGame;
     int XScore;
@@ -46,12 +47,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            score += 10;
+            textScore.SetText(score.ToString());
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            score += 50;
+            textScore.SetText(score.ToString());
+        }
         if (Input.GetMouseButton(0) && !rb.useGravity)
         {
             rb.useGravity = true;
             return;
         }
-
     }
     public bool GetSateRunGame()
     {
@@ -236,12 +246,17 @@ public class GameManager : MonoBehaviour
     }
     public void LooseUIActive()
     {
-        LooseUI.SetActive(true);
+        if (score > GameData.HighestScore)
+        {
+            GameData.HighestScore = score;
+        }
+        LooseUIGameObj.SetActive(true);
+        looseUI.SetUp(score);
     }
     public void SkipLooseUI()
     {
 
-        LooseUI.SetActive(false);
+        LooseUIGameObj.SetActive(false);
         if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
             PlayerPrefs.SetInt("HighScore", score);
@@ -276,7 +291,7 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 1.0f;
 
-
+        SpawnManager.Instance.Reset();
     }
     public void EndUIOrPauseUIReturnHomeUI()
     {

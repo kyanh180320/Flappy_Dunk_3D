@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("DeadZone"))
         {
+            Debug.Log("Dead Zone collide " + other.gameObject.name);
             GameManager.instance.SetStateGame(false);
-
         }
         if (other.gameObject.CompareTag("UpCircle"))
         {
@@ -76,8 +76,6 @@ public class PlayerController : MonoBehaviour
             rb.mass = 0f;
             GameManager.instance.SetStateGame(false);
             GameManager.instance.LooseUIActive();
-
-
         }
     }
 
@@ -93,6 +91,10 @@ public class PlayerController : MonoBehaviour
         {
             collisionCircle = true;
         }
-     
+        if (collision.gameObject.CompareTag("SpaceChallenge"))
+        {
+            GameManager.instance.SetStateGame(false);
+            GameManager.instance.LooseUIActive();
+        }
     }
 }

@@ -15,4 +15,40 @@ public class GameData
             PlayerPrefs.SetInt("ChickenSkinIndex", value);
         }
     }
+
+    public static int HighestScore
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("HighestScore", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("HighestScore", value);
+        }
+    }
+    
+    public static int PlayCount
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("PlayCount", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("PlayCount", value);
+        }
+    }
+    
+    public static int LockSpawnCooldown
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("LockSpawnCooldown", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("LockSpawnCooldown", value);
+        }
+    }
 }

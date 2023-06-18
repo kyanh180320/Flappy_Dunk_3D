@@ -11,6 +11,8 @@ TagManager:
   - DeadZone
   - DownFeverCircle
   - DownScoreCircle
+  - ScoreCircle
+  - SpaceChallenge
   layers:
   - Default
   - TransparentFX

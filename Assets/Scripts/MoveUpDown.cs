@@ -31,7 +31,7 @@ public class MoveUpDown : MonoBehaviour
 
                 if (circle.transform.position == startPos.transform.position)
                 {
-                    print("Must moveDown");
+                    //print("Must moveDown");
                     isMoveUp = !isMoveUp;
                     isMoveDown = !isMoveUp;
 
@@ -40,7 +40,7 @@ public class MoveUpDown : MonoBehaviour
             }
             else if (isMoveDown)
             {
-                print("Move Down");
+                //print("Move Down");
                 circle.transform.position = Vector3.MoveTowards(circle.transform.position, endPos.transform.position, upDownSpeed * Time.deltaTime);
                 if (circle.transform.position == endPos.transform.position)
                 {
