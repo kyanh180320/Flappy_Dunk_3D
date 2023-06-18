@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     bool collisionDetection;
     bool collisionCircle;
 
-
+    public Sprite greenLock;
 
     void Start()
     {
@@ -31,6 +31,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.CompareTag("Key"))
+        {
+            Transform circle = other.transform.parent;
+            Transform lockTrans = circle.Find("Lock");
+            SpriteRenderer lockRender = lockTrans.GetComponent<SpriteRenderer>();
+            SpriteRenderer keyRender = other.gameObject.GetComponentInChildren<SpriteRenderer>();
+            lockRender.sprite = greenLock;
+            keyRender.sprite = greenLock;
+            Transform barrier = circle.Find("Barrier");
+            Destroy(barrier.gameObject);
+        }
         if (other.gameObject.CompareTag("DeadZone"))
         {
             Debug.Log("Dead Zone collide " + other.gameObject.name);
@@ -92,6 +103,11 @@ public class PlayerController : MonoBehaviour
             collisionCircle = true;
         }
         if (collision.gameObject.CompareTag("SpaceChallenge"))
+        {
+            GameManager.instance.SetStateGame(false);
+            GameManager.instance.LooseUIActive();
+        }
+        if (collision.gameObject.CompareTag("LockBarrier"))
         {
             GameManager.instance.SetStateGame(false);
             GameManager.instance.LooseUIActive();
